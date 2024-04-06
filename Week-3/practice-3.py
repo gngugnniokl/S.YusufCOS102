@@ -11,5 +11,5 @@ for pick in captain:
 
 print("\n")
 
-for puck in goalkeepers:
+for pick in goalkeepers:
     print(pick, goalkeepers[pick])
