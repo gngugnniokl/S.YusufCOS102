@@ -13,21 +13,30 @@ def welcomeMessage(firstname, surname, department):
     label_2.pack()
 def validation(firstname, surname, department):
     file_path = "C:/Users/ipinu/OneDrive/Documents/S.YusufCOS102/week-5/GIG-logistics.csv"
+    all_employees = []
     with open(file_path, 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
-        # Skip the header or use next(csv_reader, None) if your CSV has a header
         next(csv_reader)  # Skip the header row
         for line in csv_reader:
+            # Collect all employee credentials
+            all_employees.append(line)
             # Check if the current line matches the input credentials
             if line[2] == firstname and line[1] == surname and line[3] == department:
-                # Collect the credentials of other employees
-                other_employees = "Other employees' credentials:\n"
-                for other_line in csv_reader:
-                    # Ensure not to print the credentials of the current user
-                    if other_line[2] != firstname or other_line[1] != surname or other_line[3] != department:
-                        other_employees += f"Serial Number: {other_line[0]}, Surname: {other_line[1]}, Firstname: {other_line[2]}, Department: {other_line[3]}\n"
-                return other_employees
-        return "Invalid credentials."
+                # Flag that the user's credentials are valid
+                user_valid = True
+                break
+        else:
+            # If no match was found, return invalid credentials message
+            return "Invalid credentials."
+
+    if user_valid:
+        # Filter out the current user's credentials and prepare the string
+        other_employees = "Other employees' credentials:\n"
+        for employee in all_employees:
+            if employee[2] != firstname or employee[1] != surname or employee[3] != department:
+                other_employees += f"Serial Number: {employee[0]}, Surname: {employee[1]}, Firstname: {employee[2]}, Department: {employee[3]}\n"
+        return other_employees
+
     
 def submit():
     firstname = firstname_entry.get()

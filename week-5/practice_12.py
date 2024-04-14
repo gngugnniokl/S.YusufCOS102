@@ -7,7 +7,7 @@ def welcomeMessage(username):
     window.title("Admin Box")
     window.geometry("500x200")
 
-    label1_1 = tk.Label(window, text = f"Welcome {username}\n")
+    label_1 = tk.Label(window, text = f"Welcome {username}\n")
     label_1.pack()
     label_2 = tk.Label(window,text = "This is python gui with Tkinter")
     label_2.pack()
