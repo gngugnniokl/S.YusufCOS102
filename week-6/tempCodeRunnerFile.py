@@ -1,1 +1,1 @@
-label
+RP_Dictionary[selection.get()]
