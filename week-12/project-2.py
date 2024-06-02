@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
+from abc import ABC, abstractmethod
 
 # Define the base class for External Vendors
-class External_Vendors:
+class External_Vendors(ABC):
+    @abstractmethod
     def menu(self):
-        raise NotImplementedError("Subclasses must implement this method")
+        pass
 
 # Define subclasses for each vendor
 class CooperativeCafeteria(External_Vendors):
@@ -41,19 +43,19 @@ root = tk.Tk()
 root.title("PAU External Food Vendors Management")
 
 # Function to display menu for selected vendor
-def display_menu(vendor_class):
-    menu_items = vendor_class().menu()
+def display_menu(vendor_instance):
+    menu_items = vendor_instance.menu()
     menu_text = "\n".join(f"{meal}: ₦{price}" for meal, price in menu_items.items())
-    messagebox.showinfo(f"{vendor_class.__name__} Menu", menu_text)
+    messagebox.showinfo(f"{vendor_instance.__class__.__name__} Menu", menu_text)
 
 # Add buttons for each vendor
-cooperative_button = tk.Button(root, text="Cooperative Cafeteria", command=lambda: display_menu(CooperativeCafeteria))
+cooperative_button = tk.Button(root, text="Cooperative Cafeteria", command=lambda: display_menu(CooperativeCafeteria()))
 cooperative_button.pack()
 
-faith_button = tk.Button(root, text="Faith Hostel Cafeteria", command=lambda: display_menu(FaithHostelCafeteria))
+faith_button = tk.Button(root, text="Faith Hostel Cafeteria", command=lambda: display_menu(FaithHostelCafeteria()))
 faith_button.pack()
 
-student_button = tk.Button(root, text="Student Centre Cafeteria", command=lambda: display_menu(StudentCentreCafeteria))
+student_button = tk.Button(root, text="Student Centre Cafeteria", command=lambda: display_menu(StudentCentreCafeteria()))
 student_button.pack()
 
 # Run the application
